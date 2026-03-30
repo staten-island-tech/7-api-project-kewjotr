@@ -12,4 +12,15 @@ sushi_orders = [
 ]
 
 def receipt(orders):
-    
+    receipt = []
+    for order in orders:
+        if order['name'] in receipt:
+            receipt[order['name'['quantity']]] += 1
+        else:
+            receipt[order['name']] = {
+                "price": order['price'],
+                "quantity": 1
+            }
+    print(receipt)
+receipt(sushi_orders)
+        
