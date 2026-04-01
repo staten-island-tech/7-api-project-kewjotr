@@ -5,12 +5,11 @@ wards = {
     "Oncology": ["Ivy", "Bob"]
 }
 
-staff = {}
+print("run")
 
 def find(dept):
-    for dept, docs in wards.items():
-        print(dept, docs)
-        for doc in docs:
-            print(doc)
+    for keys, values in dept:
+        print("1")
+            
 
 find(wards)
