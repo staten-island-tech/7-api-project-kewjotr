@@ -5,18 +5,12 @@ wards = {
     "Oncology": ["Ivy", "Bob"]
 }
 
-def find(dept):
-    looker = input("Find person")
+staff = {}
 
-    for scan, staff in dept:
-        if scan in staff:
-            break
-        else: 
-            if looker in dept:
-                staff[scan] = {
-                    dept
-                }
-    for scan in dept.items():
-        print(scan)
+def find(dept):
+    for dept, docs in wards.items():
+        print(dept, docs)
+        for doc in docs:
+            print(doc)
 
 find(wards)
