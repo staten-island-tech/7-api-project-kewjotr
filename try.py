@@ -1,8 +1,8 @@
-def divide(a, b):
+def divide(a,b):
     try:
-        a/ b
+        result = a/b
     except ZeroDivisionError:
-        print(" Error: Cannot Divide by Zero")
+        print(" Error: Cannot divide by Zero")
     else:
-        print(a/ b)
-divide(10,5)
+        print(result)
+divide(10, 5)
