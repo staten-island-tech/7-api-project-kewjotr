@@ -1,4 +1,3 @@
-import json
 import requests
 
 def extract(sort,item):
