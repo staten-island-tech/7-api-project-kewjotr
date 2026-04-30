@@ -1,3 +1,8 @@
 import requests
+import tkinter as tk
 
-def extract(sort,item):
+def extract(category,specific):
+    if specific == True:
+        response = requests.get(f"https://api.weather.gov/{category}/{specific}")
+        
+    data = response.json
