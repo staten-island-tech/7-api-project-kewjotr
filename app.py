@@ -22,9 +22,9 @@ def extract(category,specific):
 
 print("Available Categories""\n""Alerts, Aviation, Glossary, Stations, Offices, Radar, Points, Products, Zones")
 category1 = ("View category""\n")
-while category1 != "end":
+while (category1 != "end") or (category1 != "exit"):
     sort = input("Choose item to view")
     finish = extract(category1,sort)
     print(finish)
-    
+    category1 = ("View category""\n")
 exit()
