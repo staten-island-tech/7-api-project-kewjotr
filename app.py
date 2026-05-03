@@ -9,7 +9,7 @@ def extract(category,specific):
         
     data = response.json
     if specific:
-        if (category == "offices"):
+        if category == "offices":
             return {
                 "id": data["id"],
                 "name": data["name"],
@@ -17,22 +17,32 @@ def extract(category,specific):
                 "postal": data["postalCode"],
                 "address": data["streetAddress"]
             }
-        elif (category == "alerts") and (specific == "active"):
-            for alertfinder in data["features"]:
-                return {
-                    "event": data["features"]["properties"]["event"],
-                    "office": data["features"]["properties"]["senderName"],
-                    "category": data["features"]["properties"]["severity"],
-                    "certainty": data["features"]["properties"]["certainty"],
-                    "urgency": data["features"]["properties"]["urgency"]
-                }
+        elif category == "alerts":
+            if specific == "active":
+                for alertfinder in data["features"]:
+                    return {
+                        "event": data["features"]["properties"]["event"],
+                        "office": data["features"]["properties"]["senderName"],
+                        "category": data["features"]["properties"]["severity"],
+                        "certainty": data["features"]["properties"]["certainty"],
+                        "urgency": data["features"]["properties"]["urgency"]
+                    }
+            elif specific == "types":
+                return data["eventTypes"]
+            else:
+                return "Invalid statement."
+        
 
-avail = ["Alerts", "Aviation", "Glossary", "Stations", "Offices", "Radar", "Points", "Products", "Zones"]
+list = ["Alerts", "Aviation", "Glossary", "Stations", "Offices", "Radar", "Points", "Products", "Zones"]
 print("Available Categories""\n", avail)
 category1 = ("View category""\n")
 while (category1 != "end") or (category1 != "exit"):
     sort = input("Choose item to view")
-    finish = extract(category1,sort)
-    print(finish)
-    category1 = ("View category""\n")
+    if category1 in list:
+        finish = extract(category1,sort)
+        print(finish)
+        category1 = ("View category""\n")
+    else:
+        print("Invalid statement. Please try again.")
+        category1 = ("View category""\n")
 exit()
