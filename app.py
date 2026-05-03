@@ -1,4 +1,5 @@
 import requests
+import tkinter as tk
 
 
 def extract(category,specific):
@@ -36,6 +37,42 @@ def extract(category,specific):
                 return {
                     "aircrafts": data["features"][aircraftindex]["properties"]["sequence"]
                 }
+        elif category == "stations":
+            return {
+                "name": data["properties"]["name"],
+                "elevation": data["properties"]["elevation"]["value"],
+                "timezone": data["properties"]["timeZone"]
+            }
+        elif category == "radar":
+            if specific == "servers":
+                for radarserversindex in data["@graph"]["ping"]["targets"]["radar"]:
+                    return data["@graph"]["ping"]["targets"]["radar"][radarserversindex]
+            elif specific == "stations":
+                for radarstationsindex in data["features"]:
+                    return {
+                        "id": data["features"][radarstationsindex]["properties"]["id"],
+                        "name": data["features"][radarstationsindex]["properties"]["name"],
+                        "type": data["features"][radarstationsindex]["properties"]["stationType"]
+                    }
+            else:
+                return "Invalid Statement."
+        elif category == "products":
+            if specific == "locations":
+                for key in data["locations"]:
+                    if data["locations"][key] == null:
+                        del data["locations"][key]
+                    else:
+                        return data["locations"][key]
+            elif specific == "types":
+                for producttypes in data["@graph"]:
+                    return {
+                        "code": data["@graph"][producttypes]["productCode"],
+                        "name": data["@graph"][producttypes]["productName"]
+                    }
+            else:
+                return "Invalid Statement."
+        else:
+            return "Invalid Statement."
     else:
         if category == "glossary":
             for glossaryindex in data["glossary"]:
@@ -71,10 +108,11 @@ def extract(category,specific):
                 return {
                     "id": data["features"][zoneindex]["properties"]["id"],
                     "county": data["features"][zoneindex]["properties"]["name"],
-                    "state": data["features"][zoneindex]["properties"]["state"]
+                    "state": data["features"][zoneindex]["properties"]["state"],
+                    "type": data["features"][zoneindex]["properties"]["types"]
                 }
         else:
-            print("Invalid statement.")
+            return "Invalid statement."
 
 
 list = ["Alerts", "Aviation", "Glossary", "Stations", "Offices", "Radar", "Products", "Zones"]
